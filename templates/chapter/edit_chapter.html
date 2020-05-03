@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Edit Chapter{% endblock %}
+
+{% block content %}
+<!--<form method="POST" action="{{ url_for('.add') }}">-->
+<!--    <input type="hidden" name="id" value="{{chapter.id | default(-1)}}">-->
+<!--    {% if chapter %}-->
+<!--    <input type="hidden" name="subject_id" value="{{chapter.subject_id}}">-->
+<!--    <input disabled type="text" name="subject_name" value="{{chapter.get_subject_name() | default('')}}">-->
+<!--    {% else %}-->
+<!--    <select name="subject_id" required="required">-->
+<!--        {% for s in subjects %}-->
+<!--        <option value='{{s.id}}'>{{s.name}}</option>-->
+<!--        {% endfor %}-->
+<!--    </select>-->
+<!--    {% endif %}-->
+<!--    章节名:<input type="text" name="name" value="{{chapter.name | default('')}}">-->
+<!--    文章id:<input type="text" name="article_id" value="{{chapter.article_id | default('')}}">-->
+<!--    <button type="submit">提交</button>-->
+<!--</form>-->
+
+
+<form class="form-horizontal" method="POST" action="{{ url_for('.add') }}">
+    <fieldset>
+        <legend>编辑章节</legend>
+        <input type="hidden" name="token" value="{{token}}">
+        <input type="hidden" name="id" value="{{chapter.id | default(-1)}}">
+        {% if chapter %}
+        <input type="hidden" name="subject_id" value="{{chapter.subject_id}}">
+        <!--<input disabled type="text" name="subject_name" value="{{chapter.get_subject_name() | default('')}}">-->
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="subject_name">科目</label>
+            <div class="col-lg-10">
+                <input disabled class="form-control"
+                       id="subject_name"
+                       name="subject_name"
+                       type="text"
+                       value="{{chapter.get_subject_name() | default('')}}">
+            </div>
+        </div>
+        {% else %}
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="subject_id">科目</label>
+            <select id="subject_id" name="subject_id" required="required">
+                {% for s in subjects %}
+                <option value='{{s.id}}'>{{s.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="name">章节</label>
+            <div class="col-lg-10">
+                <input class="form-control"
+                       id="name"
+                       name="name"
+                       type="text"
+                       value="{{chapter.name | default('')}}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="article_id">文章id</label>
+            <div class="col-lg-10">
+                <input class="form-control"
+                       id="article_id"
+                       name="article_id"
+                       type="text"
+                       value="{{chapter.article_id | default(-1)}}">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="reset" class="btn btn-default">取消</button>
+    </fieldset>
+</form>
+
+
+{% endblock %}

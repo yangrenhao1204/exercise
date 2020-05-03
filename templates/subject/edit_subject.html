@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Edit Subject{% endblock %}
+{% block content %}
+<form class="form-horizontal" method="POST" action="{{ url_for('.add') }}">
+    <fieldset>
+        <legend>编辑科目</legend>
+        <input type="hidden" name="token" value="{{token}}">
+        <input type="hidden" name="id" value="{{subject.id | default(-1)}}">
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="name">科目名</label>
+            <div class="col-lg-10">
+                <input class="form-control"
+                       id="name"
+                       name="name"
+                       type="text"
+                       value="{{subject.name | default('')}}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="reset" class="btn btn-default">取消</button>
+    </fieldset>
+</form>
+{% endblock %}

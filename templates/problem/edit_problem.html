@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Edit Problem{% endblock %}
+{% block content %}
+<form method="post" action="{{url_for('.add')}}">
+    <div class="problem">
+        <input type="hidden" name="token" value="{{token}}">
+        <input type="hidden" name="id" value="{{problem.id}}">
+        <input type="hidden" name="subject_id" value="{{problem.subject_id}}">
+        <input type="hidden" name="chapter_id" value="{{problem.chapter_id}}">
+        subject_name:<input disabled type="text" name="subject_name" value="{{ subject_name | default('')}}"><br>
+        chapter_name:<input disabled type="text" name="chapter_name" value="{{ chapter_name | default('')}}"><br>
+        type:<input class='types' readonly="readonly" type="text" name="type" value="{{problem.type}}"><br>
+        <div class="problem_content">
+        </div>
+    </div>
+    <button type="submit">提交</button>
+</form>
+{% endblock %}
+
+
+{%block js %}
+<script src="{{url_for('static', filename='js/utils.js') }}"></script>
+<script src="{{url_for('static', filename='js/problem/edit_problem.js') }}"></script>
+<script type="text/javascript">
+    problemData = {
+        topic:{{problem.topic|tojson}},
+        {% if problem.options %}
+        option_A:{{problem.options.A|tojson}},
+        option_B:{{problem.options.B|tojson}},
+        option_C:{{problem.options.C|tojson}},
+        option_D:{{problem.options.D|tojson}},
+        {% endif %}
+        answer:{{problem.answer|tojson}},
+        analysis:{{problem.analysis|default('')|tojson}},
+    }
+    loadInput()
+    loadValue(problemData)
+</script>
+{% endblock %}

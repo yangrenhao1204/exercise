@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Problem{% endblock %}
+{% block content %}
+<button class="btn btn-default">
+    <a href="{{ url_for('.new') }}">
+        <i class="glyphicon glyphicon-plus"></i>
+        新建
+    </a>
+</button>
+
+
+<!--<form action="{{url_for('.read_file')}}" method="post" enctype="multipart/form-data">-->
+<!--    文件上传:<input type="file" name="file">-->
+<!--    <button type="submit">提交</button>-->
+<!--</form>-->
+
+<form class="form-horizontal"
+      action="{{url_for('.read_file')}}"
+      method="post"
+      enctype="multipart/form-data"
+      style="display:inline;">
+    <label class="control-label" for="fileInput">文件导入</label>
+    <input type="hidden" name="token" value="{{token}}">
+    <input class="form-control uniform_on"
+           style="width: 300px;display:inline;"
+           name="file"
+           id="fileInput"
+           type="file">
+    <button type="submit" class="btn btn-primary">上传</button>
+    <button type="reset" class="btn btn-default">取消</button>
+</form>
+
+
+<!--{% for p in problems%}-->
+<!--<div>-->
+<!--    {{p.id}} @ {{p.subject_id}} @ {{p.chapter_id}} @ {{p.type}} @ {{p.topic}}-->
+<!--    <a href="{{ url_for('.edit_problem', type=p.type, problem_id=p.id) }}" >修改</a>-->
+<!--    <a href="{{ url_for('.delete_problem', type=p.type, problem_id=p.id, token=token) }}" >删除</a>-->
+<!--</div>-->
+<!--{% endfor %}-->
+
+
+<table class="table table-condensed">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>科目id</th>
+        <th>章节id</th>
+        <th>类型</th>
+        <th class="col-md-6">题目</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for p in problems%}
+    <tr>
+        <td>{{p.id}}</td>
+        <td>{{p.subject_id}}</td>
+        <td>{{p.chapter_id}}</td>
+        <td>{{p.type}}</td>
+        <td>{{p.topic}}</td>
+        <td>
+            <button class="btn btn-default">
+                <a href="{{ url_for('.edit_problem', type=p.type, problem_id=p.id) }}">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                    修改
+                </a>
+            </button>
+            <button class="btn btn-default">
+                <a href="{{ url_for('.delete_problem', type=p.type, problem_id=p.id, token=token) }}">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    删除
+                </a>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+

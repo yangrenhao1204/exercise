@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}用户资料页面{% endblock %}
+{% block content %}
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">用户id</label>
+            <div class="col-lg-10">
+                <span class="form-control">{{ admin.id }}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">用户名</label>
+            <div class="col-lg-10">
+                <span class="form-control">{{ admin.name }}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">密码</label>
+            <div class="col-lg-10">
+                <span class="form-control">{{ admin.password }}</span>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
+
+

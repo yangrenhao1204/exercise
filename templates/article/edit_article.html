@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Edit Article{% endblock %}
+{%block css %}
+<link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<script>
+{% if article %}
+{% else %}
+var data_str = {{ obj|tojson|safe }}
+var data = JSON.parse(data_str)
+function changeChapter(){
+    var subject=document.getElementById("subject");
+    var chapter=document.getElementById("chapter");
+    chapter.innerHTML = ""
+    if(subject.value){
+        var chapterList=data[subject.value];
+        for(var i=0;i<chapterList.length;i++){//第一项是显示字符串，第二项是表单提交后对应的值
+            chapter[i]=new Option(chapterList[i].name,chapterList[i].id);
+        }
+    }
+}
+{% endif %}
+</script>
+
+<form method="POST" action="{{ url_for('.add') }}">
+    <input type="hidden" name="token" value="{{token}}">
+    <input type="hidden" name="id" value="{{article.id | default(-1)}}">
+    {% if article %}
+    <input type="hidden" name="chapter_id" value="{{article.chapter_id}}">
+    科目<input disabled type="text" name="subject_name" value="{{article.get_subject_name() | default('')}}">
+    章节<input disabled type="text" name="chapter_name" value="{{article.get_chapter_name() | default('')}}">
+    {% else %}
+    科目<select id="subject" name="subject_id" required="required" onchange="changeChapter()">
+        <option value=''>选择科目</option>
+        {% for s in subjects %}
+        <option value='{{s.id}}'>{{s.name}}</option>
+        {% endfor %}
+    </select>
+    章节<select id="chapter" name="chapter_id" required="required">
+    </select>
+    {% endif %}
+    标题<input type="text" name="title" value="{{article.title | default('')}}">
+    <div id="test-editormd">
+        <textarea name="content" id="content">{{article.content | default('')}}</textarea>
+    </div>
+    <button type="submit">提交</button>
+</form>
+{% endblock %}
+
+{%block js %}
+<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
+<script type="text/javascript">
+    var testEditor;
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            placeholder:'本编辑器支持Markdown编辑，左边编写，右边预览',  //默认显示的文字
+            <!--width: "90%",-->
+            height: 500,
+            syncScrolling: "single",
+            emoji: false,
+            path: "{{ url_for('static',filename='editormd/lib/') }}",
+            toolbarIcons : function() {  //自定义工具栏
+                return editormd.toolbarModes['simple']; // full, simple, mini
+            },
+        });
+    });
+    <!--var content = encodeURIComponent(testEditor.getMarkdown());-->
+</script>
+{% endblock %}

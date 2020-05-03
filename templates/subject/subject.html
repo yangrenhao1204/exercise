@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Subject{% endblock %}
+{% block content %}
+
+<button class="btn btn-default">
+    <a href="{{ url_for('.new') }}">
+        <i class="glyphicon glyphicon-plus"></i>
+        新建
+    </a>
+</button>
+
+<table class="table table-condensed">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>科目</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for s in subjects %}
+    <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.name }}</td>
+        <td>
+            <button class="btn btn-default">
+                <a href="{{ url_for('.edit_subject', subject_id=s.id) }}">
+                    <i class="glyphicon glyphicon-pencil glyphicon-white"></i>
+                    修改
+                </a>
+            </button>
+
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

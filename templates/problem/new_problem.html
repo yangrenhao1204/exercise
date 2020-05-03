@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}New Problem{% endblock %}
+{% block content %}
+<form method="post" action="{{url_for('.add')}}">
+    <div class="problem">
+        <input type="hidden" name="token" value="{{token}}">
+        <input type="hidden" name="id" value="-1">
+        suject:
+        <select class="sujects" onchange="change_suject()" name="subject_id">
+            <option value="">请选择</option>
+            {% for s in subjects %}
+            <option value="{{s.id}}">{{s.name}}</option>
+            {% endfor %}
+        </select>
+        chapter:
+        <select class="chapters" name="chapter_id">
+            <option value="">请选择</option>
+        </select>
+        type:
+        <select class="types" name="type" onchange="change_type()">
+            <option value="">请选择</option>
+            {% for t in types %}
+            <option value="{{t}}">{{t}}</option>
+            {% endfor %}
+        </select>
+        <div class="problem_content">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">提交</button>
+    <button type="reset" class="btn btn-default">取消</button>
+</form>
+{% endblock %}
+
+
+{%block js %}
+<script src="{{url_for('static', filename='js/utils.js') }}"></script>
+<script src="{{url_for('static', filename='js/problem/new_problem.js') }}"></script>
+{% endblock %}

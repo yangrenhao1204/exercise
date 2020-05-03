@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>小程序管理页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link href="{{url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    <link href="{{url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" media="screen">
+
+    <!-- Bootstrap Admin Theme -->
+    <link href="{{url_for('static', filename='css/bootstrap-admin-theme.css') }}" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="{{url_for('static', filename='js/html5shiv.js') }}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/respond.min.js') }}"></script>
+    <![endif]-->
+
+    {%block css %}{% endblock %}
+</head>
+<body class="bootstrap-admin-with-small-navbar">
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top " role="navigation">
+    <div class="container">
+        <div class="row">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">小程序管理页面</span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{url_for('index.index') }}">小程序管理页面</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="{{ url_for('admin.profile') }}" class="dropdown-toggle" data-toggle="dropdown">
+                            管理员
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('admin.request_login') }}">登录</a></li>
+                            <li><a href="{{ url_for('admin.request_register') }}">注册</a></li><!---->
+                            <li><a href="{{ url_for('admin.profile') }}">个人资料</a></li>
+                            <!--<li class="divider"></li>-->
+                            <!--<li><a href="#">退出登录</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- left, vertical navbar & content -->
+    <div class="row">
+        <!-- left, vertical navbar -->
+        <div class="col-md-2 bootstrap-admin-col-left">
+            <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
+                <li>
+                    <a href="{{ url_for('index.index') }}"><i class="glyphicon glyphicon-chevron-right"></i> 首页</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('subject.index') }}"><i class="glyphicon glyphicon-chevron-right"></i> 科目</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('chapter.index') }}"><i class="glyphicon glyphicon-chevron-right"></i> 章节</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('article.index') }}"><i class="glyphicon glyphicon-chevron-right"></i> 文章</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('problem.index') }}"><i class="glyphicon glyphicon-chevron-right"></i> 题目</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- content -->
+        <div class="col-md-10">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="text-muted bootstrap-admin-box-title">
+                            {% block title %}{% endblock %}
+                        </div>
+                    </div>
+                    <div class="bootstrap-admin-panel-content">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <hr>
+        <footer role="contentinfo">
+            <p>
+                &copy; 2020 yangrenhao.top
+                <a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20010814号</a>
+                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44158102000044"
+                   style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                    <img src="{{url_for('static', filename='images/beian.png') }}" style="float:left;"/>
+                    粤公网安备 44158102000044号
+                </a>
+            </p>
+        </footer>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js') }}"></script>
+{%block js %}{% endblock %}
+</body>
+</html>
